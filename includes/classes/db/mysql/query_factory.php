@@ -727,7 +727,7 @@ class queryFactory extends base
                 return (int)$value;
 
             case 'string':
-                if (preg_match('/NULL/', (string)$value)) {
+                if (is_scalar($value) && preg_match('/NULL/', (string)$value)) {
                     return 'null';
                 }
                 return '\'' . $this->prepare_input((string)$value) . '\'';
@@ -742,7 +742,7 @@ class queryFactory extends base
                 return '\'' . $this->prepare_input((string)$value) . '\'';
 
             case 'date':
-                if (preg_match('/null/i', (string)$value)) {
+                if (is_scalar($value) && preg_match('/null/i', (string)$value)) {
                     return 'null';
                 }
                 return '\'' . $this->prepare_input((string)$value) . '\'';
